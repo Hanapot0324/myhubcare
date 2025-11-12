@@ -1,18 +1,19 @@
 // web/src/App.jsx
-import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { io } from "socket.io-client";
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import Login from "./components/Login.jsx";
-import PatientRegistration from "./components/Register.jsx";
-import Dashboard from "./components/Dashboard.jsx";
-import MainLayout from "./components/Main.jsx";
-import Appointments from "./components/Appointment.jsx";
-import ClinicalVisits from "./components/ClinicalVisit.jsx";
-
-const socket = io("http://localhost:5000"); // global socket
+import Login from './components/Login.jsx';
+import PatientRegistration from './components/Register.jsx';
+import Dashboard from './components/Dashboard.jsx';
+import MainLayout from './components/Main.jsx';
+import Appointments from './components/Appointment.jsx';
+import ClinicalVisits from './components/ClinicalVisit.jsx';
+import Inventory from './components/Inventory.jsx';
+import Prescriptions from './components/Prescriptions.jsx';
+const socket = io('http://localhost:5000'); // global socket
 
 const theme = createTheme({
   palette: {
@@ -27,12 +28,12 @@ const theme = createTheme({
 
 export default function App() {
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("🧠 Connected to Socket.IO:", socket.id);
+    socket.on('connect', () => {
+      console.log('🧠 Connected to Socket.IO:', socket.id);
     });
 
-    socket.on("newNotification", (data) => {
-      console.log("📩 Real-time notification:", data);
+    socket.on('newNotification', (data) => {
+      console.log('📩 Real-time notification:', data);
     });
 
     return () => {
@@ -46,30 +47,50 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login socket={socket} />} />
-          <Route path="/register" element={<PatientRegistration socket={socket} />} />
-          <Route 
-            path="/dashboard" 
+          <Route
+            path="/register"
+            element={<PatientRegistration socket={socket} />}
+          />
+          <Route
+            path="/dashboard"
             element={
               <MainLayout>
                 <Dashboard socket={socket} />
               </MainLayout>
-            } 
+            }
           />
-          <Route 
-            path="/appointments" 
+          <Route
+            path="/appointments"
             element={
               <MainLayout>
                 <Appointments socket={socket} />
               </MainLayout>
-            } 
+            }
           />
-          <Route 
-            path="/clinical-visit" 
+          <Route
+            path="/clinical-visit"
             element={
               <MainLayout>
                 <ClinicalVisits socket={socket} />
               </MainLayout>
-            } 
+            }
+          />
+          <Route
+            path="/inventory"
+            element={
+              <MainLayout>
+                <Inventory socket={socket} />
+              </MainLayout>
+            }
+          />
+
+          <Route
+            path="/prescriptions"
+            element={
+              <MainLayout>
+                <Prescriptions socket={socket} />
+              </MainLayout>
+            }
           />
         </Routes>
       </BrowserRouter>

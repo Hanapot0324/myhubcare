@@ -10,16 +10,9 @@ import {
   Toolbar,
   Box,
   Typography,
-  Divider
+  Divider,
 } from '@mui/material';
-import {
-  Home,
-  Users,
-  Calendar,
-  Bell,
-  Settings,
-  LogOut
-} from 'lucide-react';
+import { Home, Users, Calendar, Bell, Settings, LogOut } from 'lucide-react';
 
 const drawerWidth = 240;
 
@@ -27,9 +20,19 @@ const menuItems = [
   { text: 'Dashboard', icon: <Home size={20} />, path: '/dashboard' },
   { text: 'Patients', icon: <Users size={20} />, path: '/patient' },
   { text: 'Appointments', icon: <Calendar size={20} />, path: '/appointments' },
-  { text: 'Clinical Visit', icon: <Calendar size={20} />, path: '/clinical-visit' },
+  {
+    text: 'Clinical Visit',
+    icon: <Calendar size={20} />,
+    path: '/clinical-visit',
+  },
+  { text: 'Inventory', icon: <Settings size={20} />, path: '/inventory' },
+  {
+    text: 'Prescriptions',
+    icon: <Settings size={20} />,
+    path: '/prescriptions',
+  },
   { text: 'Notifications', icon: <Bell size={20} />, path: '/notifications' },
-  { text: 'Settings', icon: <Settings size={20} />, path: '/settings' }
+  { text: 'Settings', icon: <Settings size={20} />, path: '/settings' },
 ];
 
 const Sidebar = () => {
@@ -49,26 +52,31 @@ const Sidebar = () => {
       sx={{
         width: drawerWidth,
         flexShrink: 0,
-        [`& .MuiDrawer-paper`]: { 
-          width: drawerWidth, 
+        [`& .MuiDrawer-paper`]: {
+          width: drawerWidth,
           boxSizing: 'border-box',
           backgroundColor: 'white',
           color: '#333333',
           display: 'flex',
-          flexDirection: 'column'
+          flexDirection: 'column',
         },
       }}
     >
       <Toolbar>
-        <Typography variant="h6" noWrap component="div" sx={{ color: '#2563eb' }}>
+        <Typography
+          variant="h6"
+          noWrap
+          component="div"
+          sx={{ color: '#2563eb' }}
+        >
           Hub Cares
         </Typography>
       </Toolbar>
       <Box sx={{ overflow: 'auto', flexGrow: 1 }}>
         <List>
           {menuItems.map((item) => (
-            <ListItem 
-              button 
+            <ListItem
+              button
               key={item.text}
               onClick={() => navigate(item.path)}
               selected={location.pathname === item.path}
@@ -79,17 +87,15 @@ const Sidebar = () => {
                     backgroundColor: 'rgba(37, 99, 235, 0.2)',
                   },
                   '& .MuiListItemIcon-root': {
-                    color: '#2563eb'
-                  }
+                    color: '#2563eb',
+                  },
                 },
                 '&:hover': {
                   backgroundColor: 'rgba(37, 99, 235, 0.05)',
-                }
+                },
               }}
             >
-              <ListItemIcon sx={{ color: '#666666' }}>
-                {item.icon}
-              </ListItemIcon>
+              <ListItemIcon sx={{ color: '#666666' }}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItem>
           ))}
@@ -97,14 +103,14 @@ const Sidebar = () => {
       </Box>
       <Box sx={{ p: 1 }}>
         <Divider sx={{ mb: 1 }} />
-        <ListItem 
-          button 
+        <ListItem
+          button
           onClick={handleLogout}
           sx={{
             borderRadius: 1,
             '&:hover': {
               backgroundColor: 'rgba(220, 38, 38, 0.05)',
-            }
+            },
           }}
         >
           <ListItemIcon sx={{ color: '#ef4444' }}>
